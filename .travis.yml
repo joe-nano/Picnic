@@ -97,6 +97,7 @@ matrix:
             - sourceline: 'ppa:ppsspp/cmake'
           packages:
             - gcc-aarch64-linux-gnu
+            - gcc-multilib
             - pkg-config-aarch64-linux-gnu
             - cmake
       env:
