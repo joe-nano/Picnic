@@ -87,6 +87,21 @@ matrix:
             - cmake
       env:
         - COMPILER=gcc-4.9
+    - compiler: gcc
+      os: linux
+      addons:
+        apt:
+          update: true
+          sources:
+            - ubuntu-toolchain-r-test
+            - sourceline: 'ppa:ppsspp/cmake'
+          packages:
+            - gcc-aarch64-linux-gnu
+            - pkg-config-aarch64-linux-gnu
+            - cmake
+      env:
+        - CMAKE_TOOLCHAIN=../cmake/toolchain-aarch64.cmake
+        - COMPILER=gcc
     - compiler: clang
       os: osx
     - compiler: gcc
