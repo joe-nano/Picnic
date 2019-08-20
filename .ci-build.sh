@@ -10,16 +10,27 @@ then
   }
 fi
 
-directory=build-$(sha1sum <<< "$@" | awk '{print $1}')
+directory=build-$(echo "$@" "$CMAKE_TOOLCHAIN" "$CMAKE_GENERATOR" | sha1sum | awk '{print $1}')
 set -x
 
 function run_cmake
 {
+  declare -a ARGS
   if [[ -n "$CMAKE_GENERATOR" ]]
   then
-    cmake -G "$CMAKE_GENERATOR" "$@"
-  else
+    ARGS+=(-G "$CMAKE_GENERATOR")
+  fi
+
+  if [[ -n "$CMAKE_TOOLCHAIN" ]]
+  then
+    ARGS+=("-DCMAKE_TOOLCHAIN_FILE=$CMAKE_TOOLCHAIN")
+  fi
+
+  if [[ ${#ARGS[@]} -eq 0 ]]
+  then
     cmake "$@"
+  else
+    cmake "${ARGS[@]}" "$@"
   fi
 }
 
