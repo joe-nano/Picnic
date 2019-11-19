@@ -1,5 +1,10 @@
 language: c
 cache: ccache
+arch:
+  - amd64
+  - arm64
+  - ppc64le
+  - s390x
 
 matrix:
   include:
@@ -111,8 +116,10 @@ matrix:
         - COMPILER=gcc-4.9
     - compiler: clang
       os: osx
+      arch: amd64
     - compiler: gcc
       os: osx
+      arch: amd64
 
 install:
   - if [[ -n "$COMPILER" ]]; then export CC=$COMPILER; fi
